@@ -12,23 +12,8 @@ pipeline {
     }
     stages {
         stage('only-if-true') {
-            when {
-                expression {
-                    return true_or_false
-                }
-            }
             steps {
-                echo "We ran the stage because true_or_false was true"
-            }
-        }
-        stage('only-if-false') {
-            when {
-                expression {
-                    return !true_or_false
-                }
-            }
-            steps {
-                echo "We ran the stage because true_or_false was false"
+                echo "Hello ${true_or_false}"
             }
         }
     }
