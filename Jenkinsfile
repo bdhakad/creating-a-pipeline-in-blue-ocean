@@ -3,6 +3,8 @@ pipeline {
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
 
+        string(name: 'cmd', defaultValue: 'echo Hello ${params.PERSON}', description: 'Who should I say hello to?')
+
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
 
         booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
@@ -13,11 +15,11 @@ pipeline {
     }
     agent {
         kubernetes {
-          yamlFile 'public/jenkins-shell-pod.yaml'
+          yamlFile 'templates/jenkins-shell-pod.yaml'
             // Can also wrap individual steps:
-            // container('shell') {
-            //     sh 'hostname'
-            // }
+            container('shell') {
+                sh 'hostname'
+            }
            //defaultContainer 'shell'
         }
     }
@@ -25,15 +27,15 @@ pipeline {
         stage('Example') {
             steps {
                 container('shell'){
-                    echo "Hello ${params.PERSON}"
+                    sh "${cmd}"
 
-                    echo "Biography: ${params.BIOGRAPHY}"
+                    // echo "Biography: ${params.BIOGRAPHY}"
 
-                    echo "Toggle: ${params.TOGGLE}"
+                    // echo "Toggle: ${params.TOGGLE}"
 
-                    echo "Choice: ${params.CHOICE}"
+                    // echo "Choice: ${params.CHOICE}"
 
-                    echo "Password: ${params.PASSWORD}"
+                    // echo "Password: ${params.PASSWORD}"
                 }
             }
         }
