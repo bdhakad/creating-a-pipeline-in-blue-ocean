@@ -17,9 +17,9 @@ pipeline {
         kubernetes {
           yamlFile 'templates/jenkins-shell-pod.yaml'
             // Can also wrap individual steps:
-            container('shell') {
-                sh 'hostname'
-            }
+            // container('shell') {
+            //     sh 'hostname'
+            // }
            //defaultContainer 'shell'
         }
     }
