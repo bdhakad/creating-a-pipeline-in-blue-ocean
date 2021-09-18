@@ -15,7 +15,7 @@ pipeline {
     }
     agent {
         kubernetes {
-          yamlFile 'templates/jenkins-shell-pod.yaml'
+          yamlFile 'jenkinsci/templates/jenkins-shell-pod.yaml'
             // Can also wrap individual steps:
             // container('shell') {
             //     sh 'hostname'
