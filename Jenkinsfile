@@ -11,9 +11,24 @@ pipeline {
         }
     }
     stages {
-        stage('Main') {
+        stage('only-if-true') {
+            when {
+                expression {
+                    return true_or_false
+                }
+            }
             steps {
-                sh 'hostname'
+                echo "We ran the stage because true_or_false was true"
+            }
+        }
+        stage('only-if-false') {
+            when {
+                expression {
+                    return !true_or_false
+                }
+            }
+            steps {
+                echo "We ran the stage because true_or_false was false"
             }
         }
     }
