@@ -1,7 +1,7 @@
 // Uses Declarative syntax to run commands inside a container.
 pipeline {
     environment {
-        PASS = 'password'
+        SPACE = "${env.BRANCH_NAME == 'develop' ? 'TRAINING-BRAJESH' : 'TRAINING-AAKASH'}"
     }
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
@@ -30,7 +30,7 @@ pipeline {
         stage('Example') {
             steps {
                 container('shell'){
-                    sh 'jenkinsci/scripts/test.sh'
+                    sh "echo space: $SPACE "
 
                     // echo "Biography: ${params.BIOGRAPHY}"
 
