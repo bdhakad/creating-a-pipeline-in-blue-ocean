@@ -1,7 +1,12 @@
 // Uses Declarative syntax to run commands inside a container.
 pipeline {
     environment {
-        SPACE = "${env.BRANCH_NAME == 'develop' ? 'TRAINING-BRAJESH' : 'TRAINING-AAKASH'}"
+        if ${env.BRANCH_NAME == 'develop'} {
+            SPACE = '123'
+        } else {
+            SPACE = '456'
+        }
+        // SPACE = "${env.BRANCH_NAME == 'develop' ? 'TRAINING-BRAJESH' : 'TRAINING-AAKASH'}"
     }
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
