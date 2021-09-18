@@ -4,4 +4,4 @@ name: A Declarative template with a boolean parameter
 parameters:
   - name: true_or_false
     displayName: A boolean parameter
-    type: boolean
+    type: string
