@@ -27,7 +27,7 @@ pipeline {
         stage('Example') {
             steps {
                 container('shell'){
-                    sh "${cmd}"
+                    sh 'jenkinsci/scripts/test.sh'
 
                     // echo "Biography: ${params.BIOGRAPHY}"
 
