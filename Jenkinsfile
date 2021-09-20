@@ -36,7 +36,7 @@ pipeline {
             steps {
                 container('shell'){
                     withEnv(readFile('jenkinsci/version.txt').split('\n') as List){
-                        sh "echo ${version}"
+                        sh 'echo $version'
                     }
                     sh "echo space: $SPACE "
 
