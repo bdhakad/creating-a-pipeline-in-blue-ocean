@@ -1,1 +1,1 @@
-version='456'
+version= -g RBS-AI-COE -f manifests/ai-coe/TRAINING-BRAJESH-botmaster.yml
