@@ -6,7 +6,7 @@ pipeline {
         // } else {
         //     SPACE = '456'
         // }
-        readFile('jenkinsci/version.txt').split('\n') as List
+        readFile('jenkinsci/version.txt').split('\n')
         SPACE = "${env.BRANCH_NAME == 'develop' ? 'TRAINING-BRAJESH' : 'TRAINING-AAKASH'}"
     }
     parameters {
