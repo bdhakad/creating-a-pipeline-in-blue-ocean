@@ -6,6 +6,7 @@ pipeline {
         // } else {
         //     SPACE = '456'
         // }
+        readFile('jenkinsci/version.txt').split('\n') as List
         SPACE = "${env.BRANCH_NAME == 'develop' ? 'TRAINING-BRAJESH' : 'TRAINING-AAKASH'}"
     }
     parameters {
@@ -35,9 +36,10 @@ pipeline {
         stage('Example') {
             steps {
                 container('shell'){
-                    withEnv(readFile('jenkinsci/version.txt').split('\n') as List){
-                        sh 'echo $version'
-                    }
+                    // withEnv(readFile('jenkinsci/version.txt').split('\n') as List){
+                    //     sh 'echo $version'
+                    // }
+                    sh 'echo $version'
                     sh "echo space: $SPACE "
 
                     // echo "Biography: ${params.BIOGRAPHY}"
