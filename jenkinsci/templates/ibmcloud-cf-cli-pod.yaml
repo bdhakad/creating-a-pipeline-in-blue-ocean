@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+spec:
+  containers:
+  - name: ibmcloud-cli-nodejs
+    image: dhakadb/node-ibmcloud-cf-cli:0.0.1
+    ttyEnabled: true
+    command:
+    - cat
+    
+# use
+# yamlFile 'jenkinsci/templates/ibmcloud-cf-cli-pod.yaml'

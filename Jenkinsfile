@@ -1,34 +1,57 @@
+// Uses Declarative syntax to run commands inside a container.
 pipeline {
-  agent {
-    docker {
-      image 'node:6-alpine'
-      args '-p 3000:3000'
-    }
+    environment readFile('jenkinsci/version.txt').split('\n')
+    // {
+    //     // if ${env.BRANCH_NAME == 'develop'} {
+    //     //     SPACE = '123'
+    //     // } else {
+    //     //     SPACE = '456'
+    //     // }
+    //     readFile('jenkinsci/version.txt').split('\n')
+    //     SPACE = "${env.BRANCH_NAME == 'develop' ? 'TRAINING-BRAJESH' : 'TRAINING-AAKASH'}"
+    // }
+    parameters {
+        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
 
-  }
-  stages {
-    stage('Build') {
-      steps {
-        sh 'npm install'
-      }
-    }
+        string(name: 'cmd', defaultValue: 'echo ${PERSON}', description: 'Who should I say hello to?')
 
-    stage('Test') {
-      environment {
-        CI = 'true'
-      }
-      steps {
-        sh './jenkins/scripts/test.sh'
-      }
-    }
+        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
 
-    stage('Deliver') {
-      steps {
-        sh './jenkins/scripts/deliver.sh'
-        input 'Finished using the web site? (Click "Proceed" to continue)'
-        sh './jenkins/scripts/kill.sh'
-      }
-    }
+        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
 
-  }
+        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
+
+        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+    }
+    agent {
+        kubernetes {
+          yamlFile 'jenkinsci/templates/jenkins-shell-pod.yaml'
+            // Can also wrap individual steps:
+            // container('shell') {
+            //     sh 'hostname'
+            // }
+           //defaultContainer 'shell'
+        }
+    }
+    stages {
+        stage('Example') {
+            steps {
+                container('shell'){
+                    // withEnv(readFile('jenkinsci/version.txt').split('\n') as List){
+                    //     sh 'echo $version'
+                    // }
+                    sh 'echo $version'
+                    sh "echo space: $SPACE "
+
+                    // echo "Biography: ${params.BIOGRAPHY}"
+
+                    // echo "Toggle: ${params.TOGGLE}"
+
+                    // echo "Choice: ${params.CHOICE}"
+
+                    // echo "Password: ${params.PASSWORD}"
+                }
+            }
+        }
+    }
 }
